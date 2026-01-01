@@ -22,14 +22,14 @@ namespace NegotiatRTestHarness.Domain.Password.Specifications
                 return true;
 
             var attempt = method.PasswordCreationAttempt
-                .ValueOrThrow("Password authentication requires a password attempt.");
+                .ValueOrThrow("Password creation requires a password attempt.");
 
             var password = method.PasswordCreationAttempt.Value.RawPassword;
 
             return password.Any(char.IsUpper)
                 && password.Any(char.IsLower)
                 && password.Any(char.IsDigit)
-                && password.Any(char.IsSymbol);
+                && password.Any(c => char.IsPunctuation(c) || char.IsSymbol(c));// these pass as symbols:! @ # $ % ^ & * ( ) _ + - = { } [ ] | \ : ; " ' < > , . ? /
         }
     }
 }

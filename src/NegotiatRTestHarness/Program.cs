@@ -96,8 +96,8 @@ var history = historyProvider.GetFor(Guid.NewGuid());
 var attempt =
     new PasswordCreationAttempt(
         UserId: Guid.NewGuid(),
-        RawPassword: "123",
-        LastRotatedAt: DateTime.UtcNow.AddYears(-5));
+        RawPassword: "M1a{f*&pp",
+        LastRotatedAt: DateTime.UtcNow.AddDays(-5));
 
 var command =
     new CreatePasswordCredentialsCommand(attempt);

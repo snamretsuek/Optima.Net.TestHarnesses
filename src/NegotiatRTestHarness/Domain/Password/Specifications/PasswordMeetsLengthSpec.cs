@@ -24,7 +24,7 @@ namespace NegotiatRTestHarness.Domain.Password.Specifications
                 return true;
 
             var attempt = method.PasswordCreationAttempt
-                .ValueOrThrow("Password authentication requires a password attempt.");
+                .ValueOrThrow("Password creation requires a password attempt.");
 
             return attempt.RawPassword.Length >= MinLength;
         }

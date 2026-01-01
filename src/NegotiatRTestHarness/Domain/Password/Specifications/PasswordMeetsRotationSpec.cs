@@ -24,7 +24,7 @@ namespace NegotiatRTestHarness.Domain.Password.Specifications
                 return true;
 
             var attempt = method.PasswordCreationAttempt
-                .ValueOrThrow("Password authentication requires a password attempt.");
+                .ValueOrThrow("Password cration requires a password attempt.");
 
             return DateTime.UtcNow - attempt.LastRotatedAt <= MaxAge;
         }

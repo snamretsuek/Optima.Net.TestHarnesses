@@ -17,7 +17,7 @@ namespace NegotiatRTestHarness.Application.IntegrationEvents
             string source,
             DateTime occurredAt)
         {
-            var payload = new DynamicPayload("CredentialCreationMethodChangedEvent");
+            var payload = new DynamicPayload("CredentialCreationMethodSucceededEvent");
             payload.Add("CredentialType", credentialType);
             payload.Add("Source", source);
             payload.Add("OccurredAt", occurredAt);
