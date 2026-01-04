@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModelTestHarness", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisioningTestHarness", "DecisioningTestHarness\DecisioningTestHarness.csproj", "{5FB1845B-6673-49DE-9067-6BEC2CA0A1BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTestHarness", "DomainTestHarness\DomainTestHarness.csproj", "{E9A5F964-7DF7-45B2-994A-5EBF6DDC7D0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5FB1845B-6673-49DE-9067-6BEC2CA0A1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB1845B-6673-49DE-9067-6BEC2CA0A1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB1845B-6673-49DE-9067-6BEC2CA0A1BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A5F964-7DF7-45B2-994A-5EBF6DDC7D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A5F964-7DF7-45B2-994A-5EBF6DDC7D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A5F964-7DF7-45B2-994A-5EBF6DDC7D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A5F964-7DF7-45B2-994A-5EBF6DDC7D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
