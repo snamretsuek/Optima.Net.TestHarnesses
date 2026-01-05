@@ -1,9 +1,0 @@
-{
-  "name": "frontend-test-harness",
-  "version-string": "0.1.0",
-  "builtin-baseline": "159da30b1c1a1097a7d6c3c618682735cbdd5a18",
-  "dependencies": [
-    "nlohmann-json",
-    "cpprestsdk"
-  ]
-}
