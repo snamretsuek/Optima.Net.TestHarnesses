@@ -1,14 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Optima.Net.Decisioning;
+using Optima.Net.Domain.Policy.Evaluators;
 using TestHarness;
 
 Console.WriteLine("=== Optima.Net.Decisioning Harness ===");
 Console.WriteLine("Scenario: Insurance Claim Decisioning\n");
 
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 // SECTION 1 — Pure Decisioning Harness (no negotiation)
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 Console.WriteLine("▶ RUNNING DecisionHarness (pure Decisioning)\n");
 
 var claimIntents = new[]
@@ -28,9 +29,9 @@ foreach (var intent in claimIntents)
     Console.WriteLine(new string('-', 70));
 }
 
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 // SECTION 2 — NegotiatR Harness (proposal-based negotiation)
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 Console.WriteLine("\n\n\n\n");
 Console.WriteLine("===  RUNNING NegotiatRDecisionHarness (proposal-based negotiation)=== ");
 
@@ -54,9 +55,9 @@ Console.WriteLine("\nExecution complete. Press any key to exit...");
 Console.ReadKey();
 
 
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 // SUPPORTING PRINTERS
-// ─────────────────────────────────────────────
+// ---------------------------------------------
 
 static void PrintDecision<TIntent, TResult>(Decision<TIntent, TResult> decision)
 {
@@ -66,25 +67,67 @@ static void PrintDecision<TIntent, TResult>(Decision<TIntent, TResult> decision)
     Console.WriteLine($"Correlation ID: {decision.Metadata.CorrelationId.ValueOrDefault("N/A")}");
     Console.WriteLine();
 
-    switch (decision.Result)
+    // ---------------------------------------------
+    // Print Result
+    // ---------------------------------------------
+    if (decision.Result.HasValue)
     {
-        case { HasValue: true }:
-            Console.WriteLine("Result Details:");
-            PrintResult(decision.Result.Value);
-            break;
-        default:
-            Console.WriteLine("No result produced.");
-            break;
+        Console.WriteLine("Result Details:");
+        PrintResult(decision.Result.Value);
+    }
+    else
+    {
+        Console.WriteLine("No result produced.");
     }
 
-    if (decision.Evidence.HasValue)
+    // ---------------------------------------------
+    // Print Evidence (Policy Failures, Diagnostics, etc.)
+    // ---------------------------------------------
+    if (decision.Evidence.HasValue && decision.Evidence.Value.Count > 0)
     {
         Console.WriteLine("\nEvidence:");
         foreach (var e in decision.Evidence.Value)
-            Console.WriteLine($"  - {e}");
+        {
+            // If the evidence is a PolicyFailure, print it cleanly
+            if (e is PolicyFailure failure)
+                Console.WriteLine($"  - {failure}");
+            else
+                Console.WriteLine($"  - {e}");
+        }
     }
 
-    Console.WriteLine($"\nNegotiation: {(decision.Negotiation.HasValue ? "Recorded" : "[none]")}");
+    // ---------------------------------------------
+    // Print Negotiation Outcome (if recorded)
+    // ---------------------------------------------
+    if (decision.Negotiation.HasValue)
+    {
+        var negotiation = decision.Negotiation.Value;
+
+        Console.WriteLine("\nNegotiation Outcome:");
+        Console.WriteLine($"  Disposition: {negotiation.Disposition}");
+
+        if (negotiation.Proposal.HasValue)
+        {
+            Console.WriteLine("  Proposed Alternative:");
+            Console.WriteLine($"    {negotiation.Proposal.Value}");
+        }
+
+        if (negotiation.Evidence != null && negotiation.Evidence.Count > 0)
+        {
+            Console.WriteLine("  Negotiation Evidence:");
+            foreach (var e in negotiation.Evidence)
+            {
+                if (e is PolicyFailure pf)
+                    Console.WriteLine($"    - {pf}");
+                else
+                    Console.WriteLine($"    - {e}");
+            }
+        }
+    }
+    else
+    {
+        Console.WriteLine("\nNegotiation: [none]");
+    }
 }
 
 static void PrintResult(object result)

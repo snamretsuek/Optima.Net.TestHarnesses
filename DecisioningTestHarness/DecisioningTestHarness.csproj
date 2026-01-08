@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Optima.Net.Decisioning" Version="1.0.0" />
-    <PackageReference Include="Optima.Net.NegotiatR" Version="1.0.1" />
+    <PackageReference Include="Optima.Net.NegotiatR" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

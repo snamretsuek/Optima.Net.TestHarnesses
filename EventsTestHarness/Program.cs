@@ -47,6 +47,22 @@ Console.WriteLine("Generated Avro Schema:");
 Console.WriteLine(schemaJson);
 Console.WriteLine();
 
+var schemaHash = AvroSchemaGenerator.ComputeSchemaHash(schemaJson);
+Console.WriteLine("Computed the Avro Schema Hash:");
+Console.WriteLine(schemaHash);
+Console.WriteLine();
+
+Console.WriteLine("You can use the AvroSchemaGenarator.GenerateSchemaFromGenericEvent and the AvroSchemaGenerator.ComputeSchemaHash");
+Console.WriteLine("methods to generate Avro schemas and compute their hashes for your events");
+Console.WriteLine("The generated schema and hash can then be saved to a registry (or configuration) with the hash being the unique identifier for the schema.\n");
+Console.WriteLine("When serializing the serialization method will recalculate the hash based on the schema that was used.");
+Console.WriteLine("This is by design, to ensure that the correct schema hash is used for deserialserialization, on the receivers end.");
+Console.WriteLine("This is also how the desarializer can establish if the schema was altered or not, by comparing the calculated hash \nwith the hash that was stored in the registry (or configuration) when the schema was registered.\n");
+Console.WriteLine("If the hash does not exist in the registry or configuration it can be assumed that the scham was altered.");
+Console.WriteLine("SchemaHash usage for schema retrieval is best done with a transport pattern such as the Envelope Pattern.");
+Console.WriteLine("For more information on the Envelope Pattern, please refer to the Optima.Net.Events documentation.\n");
+
+
 var avroData = AvroEventSerializer.Serialize(avroEvt, schemaJson);
 Console.WriteLine($"Serialized Avro Data: " + string.Join(", ", avroData) + "\n");
 Console.WriteLine($"Serialized Avro Data: {avroData.Length} bytes\n");
